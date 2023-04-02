@@ -12,8 +12,7 @@ import {
 import { InventoryService } from './inventory.service';
 import { UpdateInventoryDto } from './dto/update-inventory.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ImportProductDto, ImportProductsDto } from './dto/import.dto';
-import * as csvParser from 'csv-parser';
+import { ImportProductDto } from './dto/import.dto';
 import { Readable } from 'stream';
 import * as Papa from 'papaparse';
 
@@ -33,28 +32,22 @@ export class InventoryController {
       step: function (row) {
         console.log('Row: ', row.data);
         products.push({
-          name: row.data[0],
-          quantity: row.data[1],
+          productId: row.data[0],
+          level: Number(row.data[1]),
         });
       },
     });
-
-    const importProductsDto = new ImportProductsDto();
-    importProductsDto.products = products;
-
-    // await this.inventoryService.updateInventoryLevels(
-    //   importProductsDto.products,
-    // );
+    return this.inventoryService.import(products);
   }
 
-  @Get()
+  @Get('products')
   findAll() {
     return this.inventoryService.findAll();
   }
 
-  @Get(':id')
+  @Get('products/:id')
   findOne(@Param('id') id: string) {
-    return this.inventoryService.findOne(+id);
+    return this.inventoryService.findOne(id);
   }
 
   @Patch(':id')

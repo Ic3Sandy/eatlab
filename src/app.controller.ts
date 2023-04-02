@@ -9,13 +9,4 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
-
-  /*
-  GET /products
-  Retrieve a list of all products
-  */
-  @Get('products')
-  getProducts(): string[] {
-    return ['product1', 'product2', 'product3'];
-  }
 }
