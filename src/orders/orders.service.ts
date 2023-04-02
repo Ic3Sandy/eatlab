@@ -1,33 +1,27 @@
 import { Injectable } from '@nestjs/common';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
-import { Order } from './entities/order.entity';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { Order } from './schemas/order.schema';
 
 @Injectable()
 export class OrdersService {
-  create(createOrderDto: CreateOrderDto): Order {
-    return {
-      id: '1',
-      ...createOrderDto,
-    };
+  constructor(
+    @InjectModel(Order.name) private readonly orderModel: Model<Order>,
+  ) {}
+
+  async create(createOrderDto: CreateOrderDto): Promise<Order> {
+    const createdOrder = await this.orderModel.create(createOrderDto);
+    return createdOrder;
   }
 
-  findAll(): Order[] {
-    return [
-      {
-        id: '1',
-        quantity: 12,
-        productId: '1',
-      },
-    ];
+  async findAll(): Promise<Order[]> {
+    return await this.orderModel.find().exec();
   }
 
-  findOne(id: string): Order {
-    return {
-      id,
-      quantity: 12,
-      productId: '1',
-    };
+  async findOne(id: string): Promise<Order> {
+    return this.orderModel.findOne({ _id: id }).exec();
   }
 
   update(id: number, updateOrderDto: UpdateOrderDto) {

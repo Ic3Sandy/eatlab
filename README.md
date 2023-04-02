@@ -5,6 +5,8 @@ A. You have been tasked with designing a database schema to track student enroll
 
 Design a SQL schema for this problem, including the necessary tables, columns, and relationships.
 
+Answer: in file `design-db.md`
+
 ===================
 B. You have been tasked with focusing on TypeScript and Docker Compose, and with implementing three separate API servers for product, order, and inventory management.
 
@@ -96,6 +98,8 @@ Pre-order Ouput: [1, 2, 4, 5, 6, 7, 8, 3]
 Post-order Ouput: [4, 6, 8, 7, 5, 2, 3, 1]
 
 In-order Output: [4, 2, 6, 5, 8, 7, 1, 3]
+
+Answer: in file `dfs.ts`
 
 ---
 
