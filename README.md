@@ -20,37 +20,37 @@ Requirements
 5. The backend services should handle errors gracefully and return informative error messages.
 6. The product server should manage the products by implementing the following endpoints:
 
-- GET /products
-  Retrieve a list of all products
+   - GET /products
+     Retrieve a list of all products
 
-- GET /products/:id
-  Retrieve a product by ID
+   - GET /products/:id
+     Retrieve a product by ID
 
 7. The product server should have a cron job set up to sync new products from the inventory server every 5 seconds.
 8. The order server should manage the orders by implementing the following endpoints:
 
-- POST /orders
-  Create a new order with product IDs and quantities
+   - POST /orders
+     Create a new order with product IDs and quantities
 
-- GET /orders
-  Retrieve a list of all orders
+   - GET /orders
+     Retrieve a list of all orders
 
-- GET /orders/:id
-  Retrieve an order by ID
+   - GET /orders/:id
+     Retrieve an order by ID
 
 9. The inventory server should manage the inventory by implementing the following endpoints:
 
-- POST /inventory/import
-  Import products with initial inventory levels from a CSV file
+   - POST /inventory/import
+     Import products with initial inventory levels from a CSV file
 
-- GET /inventory/products
-  Retrieve a list of all products
+   - GET /inventory/products
+     Retrieve a list of all products
 
-- GET /inventory/products/:id
-  Retrieve a product by ID
+   - GET /inventory/products/:id
+     Retrieve a product by ID
 
-- PUT /inventory/products
-  Update inventory levels for a product
+   - PUT /inventory/products
+     Update inventory levels for a product
 
 When a customer places an order, the order server should check inventory levels with the inventory server to ensure the order can be fulfilled.
 If the inventory is sufficient, the order server should create the order and update the inventory levels accordingly.
