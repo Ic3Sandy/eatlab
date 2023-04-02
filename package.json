@@ -22,9 +22,11 @@
     "@nestjs/common": "^9.0.0",
     "@nestjs/core": "^9.0.0",
     "@nestjs/mapped-types": "*",
+    "@nestjs/mongoose": "^9.2.2",
     "@nestjs/platform-express": "^9.0.0",
     "class-validator": "^0.14.0",
     "csv-parser": "^3.0.0",
+    "mongoose": "^7.0.3",
     "papaparse": "^5.4.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.5.5"
