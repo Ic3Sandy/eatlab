@@ -1,5 +1,37 @@
 # eatlab
 
+This repository contains a sample project for an e-commerce website with a microservices architecture. The project consists of four backend services: product server, order server, inventory server, and user server.
+
+Each backend service has its own database and uses Express for TypeScript to implement the REST API. The backend services are orchestrated using Docker Compose, making it easy to deploy and manage the services.
+
+The order server communicates with the inventory server to check inventory levels before creating a new order. The product server manages the products and syncs new products from the inventory server every 5 seconds using a cron job.
+
+The backend services handle errors gracefully and return informative error messages to the client.
+
+The product server implements two endpoints for retrieving products: GET /products to retrieve a list of all products and GET /products/:id to retrieve a product by ID.
+
+The order server implements three endpoints for managing orders: POST /orders to create a new order with product IDs and quantities, GET /orders to retrieve a list of all orders, and GET /orders/:id to retrieve an order by ID.
+
+The inventory server implements four endpoints for managing inventory: POST /inventory/import to import products with initial inventory levels from a CSV file, GET /inventory/products to retrieve a list of all products, GET /inventory/products/:id to retrieve a product by ID, and PUT /inventory/products to update inventory levels for a product.
+
+Overall, this project provides a solid foundation for building an e-commerce website with a microservices architecture. Feel free to use this project as a starting point for your own e-commerce project.
+
+## Run the project
+
+To run the project, you need to have Docker and Docker Compose installed on your machine.
+
+```bash
+docker compose up -d
+```
+
+## Show logs
+
+```bash
+docker compose logs -f nestjs
+```
+
+---
+
 In the coding section
 A. You have been tasked with designing a database schema to track student enrollment in courses at a university. Each course has a unique ID, name and description. Each student has a unique ID, a name, an email address, and a graduation year. A student can be enrolled in multiple courses, and a course can have multiple students enrolled. Each enrollment should also track the enrollment date.
 
@@ -8,6 +40,7 @@ Design a SQL schema for this problem, including the necessary tables, columns, a
 Answer: in file `design-db.md`
 
 ===================
+
 B. You have been tasked with focusing on TypeScript and Docker Compose, and with implementing three separate API servers for product, order, and inventory management.
 
 Background
