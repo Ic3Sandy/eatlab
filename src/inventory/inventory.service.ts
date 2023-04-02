@@ -14,10 +14,8 @@ export class InventoryService {
     @InjectModel(Product.name) private readonly productModel: Model<Product>,
   ) {}
 
-  async import(products: ImportProductDto[]) {
-    for (const product of products) {
-      await this.inventoryModel.create(product);
-    }
+  async import(product: ImportProductDto) {
+    await this.inventoryModel.create(product);
   }
 
   async findAll(): Promise<Inventory[]> {
@@ -28,8 +26,10 @@ export class InventoryService {
     return this.productModel.findOne({ _id: id }).exec();
   }
 
-  update(id: number, updateInventoryDto: UpdateInventoryDto) {
-    return `This action updates a #${id} inventory`;
+  async update(id: string, updateInventoryDto: UpdateInventoryDto) {
+    return this.inventoryModel
+      .updateOne({ _id: id }, updateInventoryDto)
+      .exec();
   }
 
   remove(id: number) {

@@ -3,16 +3,15 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
   UseInterceptors,
   UploadedFile,
+  Put,
 } from '@nestjs/common';
 import { InventoryService } from './inventory.service';
 import { UpdateInventoryDto } from './dto/update-inventory.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ImportProductDto } from './dto/import.dto';
 import { Readable } from 'stream';
 import * as Papa from 'papaparse';
 
@@ -23,21 +22,18 @@ export class InventoryController {
   @Post('import')
   @UseInterceptors(FileInterceptor('file'))
   async import(@UploadedFile() file: Express.Multer.File) {
-    const products: ImportProductDto[] = [];
     const stream = Readable.from(file.buffer);
-    const csvData = Papa.parse(stream, {
+    Papa.parse(stream, {
       header: false,
       worker: true,
       delimiter: ',',
-      step: function (row) {
-        console.log('Row: ', row.data);
-        products.push({
+      step: async (row) => {
+        await this.inventoryService.import({
           productId: row.data[0],
           level: Number(row.data[1]),
         });
       },
     });
-    return this.inventoryService.import(products);
   }
 
   @Get('products')
@@ -50,12 +46,12 @@ export class InventoryController {
     return this.inventoryService.findOne(id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(
     @Param('id') id: string,
     @Body() updateInventoryDto: UpdateInventoryDto,
   ) {
-    return this.inventoryService.update(+id, updateInventoryDto);
+    return this.inventoryService.update(id, updateInventoryDto);
   }
 
   @Delete(':id')
